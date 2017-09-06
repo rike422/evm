@@ -13,7 +13,13 @@ ERLANG_URL="http://www.erlang.org"
 FILE_PATH="/download/otp_src_"
 FILE_EXTENSION=".tar.gz"
 FILE_PREFIX="otp_src_"
-EVM_HOME=$HOME"/.evm"
+if [ -z "${EVM_HOME}" ]; then
+  EVM_HOME="${HOME}/.evm"
+else
+  EVM_HOME="${EVM_HOME%/}"
+fi
+export EVM_HOME
+
 DEFAULT_TAR_LOCATION=$EVM_HOME"/erlang_tars/"
 DEFAULT_INSTALL_LOCATION=$EVM_HOME"/erlang_versions/"
 

@@ -3,7 +3,11 @@
 # This simple script should create the basic environment for 
 # EVM in the user's HOME
 
-EVM_HOME="$HOME/.evm"
+if [ -z "${EVM_HOME}" ]; then
+  EVM_HOME="${HOME}/.evm"
+else
+  EVM_HOME="${EVM_HOME%/}"
+fi
 DIRS="erlang_tars erlang_versions evm_config scripts"
 
 type wget > /dev/null 2> /dev/null
@@ -37,7 +41,7 @@ else
 fi
 
 # Copy the script
-cp "evm" "$EVM_HOME/scripts"
+cp `dirname $0`/"evm" "$EVM_HOME/scripts"
 
 echo
 echo "
@@ -66,5 +70,5 @@ echo "
  \____|__  /(____  /|___|  /(____  /\___  /  \___  >|__|   
          \/      \/      \/      \//_____/       \/       
 "
-echo 
-echo "Execute 'source $HOME/.evm/scripts/evm' or add that to your ~/.bashrc or ~/.zshrc file"
+echo
+echo "Execute 'source $EVM_HOME/scripts/evm' or add that to your ~/.bashrc or ~/.zshrc file"
